@@ -1,8 +1,24 @@
-/usr/PyCode/Task2/TestDir/lll.txt deleted/usr/PyCode/Task2/TestDir modified/usr/PyCode/Task2/TestDir/LLL created
-/usr/PyCode/Task2/TestDir modified
-/usr/PyCode/Task2/TestDir/LLL/lll.txt created
-/usr/PyCode/Task2/TestDir/LLL modified
-/usr/PyCode/Task2/TestDir/LLL/lll.txt modified
-/usr/PyCode/Task2/TestDir/LLL modified
-/usr/PyCode/Task2/TestDir/kkk.txt deleted
-/usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:00:30 2022 /usr/PyCode/Task2/TestDir/kkk.txt created
+Sun Mar 27 04:00:30 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:00:30 2022 /usr/PyCode/Task2/TestDir/kkk.txt modified
+Sun Mar 27 04:00:30 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:01:03 2022 /usr/PyCode/Task2/TestDir/kkk.txt deleted
+Sun Mar 27 04:01:03 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:01:25 2022 /usr/PyCode/Task2/TestDir/LLL/lll.txt deleted
+Sun Mar 27 04:01:25 2022 /usr/PyCode/Task2/TestDir/LLL modified
+Sun Mar 27 04:01:25 2022 /usr/PyCode/Task2/TestDir/LLL deleted
+Sun Mar 27 04:01:25 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:01:32 2022 /usr/PyCode/Task2/TestDir/ttt.txt created
+Sun Mar 27 04:01:32 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:01:32 2022 /usr/PyCode/Task2/TestDir/ttt.txt modified
+Sun Mar 27 04:01:32 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:02:20 2022 /usr/PyCode/Task2/TestDir/tt.txt created
+Sun Mar 27 04:02:20 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:02:20 2022 /usr/PyCode/Task2/TestDir/tt.txt modified
+Sun Mar 27 04:02:20 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:06:13 2022 /usr/PyCode/Task2/TestDir/tt.txt deleted
+Sun Mar 27 04:06:13 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:12:07 2022 /usr/PyCode/Task2/TestDir/sss.txt created
+Sun Mar 27 04:12:07 2022 /usr/PyCode/Task2/TestDir modified
+Sun Mar 27 04:12:07 2022 /usr/PyCode/Task2/TestDir/sss.txt modified
+Sun Mar 27 04:12:07 2022 /usr/PyCode/Task2/TestDir modified
