@@ -1,4 +1,4 @@
-
+import os
 import time
 import sys
 from watchdog.observers import Observer
@@ -8,8 +8,8 @@ from watchdog.events import PatternMatchingEventHandler
 class MyHandler(PatternMatchingEventHandler):
 
     def process(self, event):
-        with open(path_log_file + "log.txt", "a") as file:
-            file.write("%s %s" % (event.src_path, event.event_type))
+        with open("%s" % os.path.normpath(path_log_file + "/log.txt"), "a") as file:
+            file.write("%s %s\n" % (event.src_path, event.event_type))
         print(event.src_path, event.event_type)
 
     def on_modified(self, event):
@@ -28,7 +28,7 @@ if __name__ == '__main__':
         script, path_dir, path_replic_dir, path_log_file, time_interval = sys.argv
 
         observer = Observer()
-        observer.schedule(MyHandler(), path=path_dir)
+        observer.schedule(MyHandler(), path=path_dir, recursive=True)
         observer.start()
 
         try:
@@ -38,6 +38,7 @@ if __name__ == '__main__':
             observer.stop()
 
         observer.join()
+
     except ValueError:
         err = """
     Недостаточно аргументов для запуска!

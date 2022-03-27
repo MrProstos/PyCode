@@ -1,0 +1,8 @@
+/usr/PyCode/Task2/TestDir/lll.txt deleted/usr/PyCode/Task2/TestDir modified/usr/PyCode/Task2/TestDir/LLL created
+/usr/PyCode/Task2/TestDir modified
+/usr/PyCode/Task2/TestDir/LLL/lll.txt created
+/usr/PyCode/Task2/TestDir/LLL modified
+/usr/PyCode/Task2/TestDir/LLL/lll.txt modified
+/usr/PyCode/Task2/TestDir/LLL modified
+/usr/PyCode/Task2/TestDir/kkk.txt deleted
+/usr/PyCode/Task2/TestDir modified
