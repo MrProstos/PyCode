@@ -42,6 +42,8 @@ class Socket_client():
             print("Отправка данных...")
             self.sock.sendall(msg_text.encode())
             print("Данные отправлены!")
+            data = self.sock.recv(2048)
+            print(data.decode())
 
         finally:
             self.sock.close()

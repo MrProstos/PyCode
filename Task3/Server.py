@@ -13,13 +13,19 @@ class Socket_server():
         self.sock.bind((self.ip, self.port))
         self.sock.listen(50)
 
-    def msg_write(self, msg: dict, *text: str):
-        for key, value in unique_data.items():
-            for msg_key, msg_value in msg.items():
-                if key == msg_key and value == msg_value:
-                    print("УСПЕХ!")
-                    with open("/log.txt", "a") as file:
-                        file.write("%s %s %s" % (time.asctime(), msg, text))
+    def msg_write(self, text: list):
+        try:
+            for key, value in unique_data.items():
+                
+                if key == text[0] and value == text[1]:
+                    
+                    with open("log.txt", "a") as file:
+                        file.write("%s %s %s\n" % (time.asctime(),text[0:2], text[2]))
+                    return "Успех! Данные подтверждены."
+                else:
+                    return "Ошибка! Неправильные данные."
+        except IndexError:
+            return "Ошибка! Введене не полный объем данных"
 
     def server1_run(self):
 
@@ -63,8 +69,7 @@ class Socket_server():
                     print("Получено %s" % msg.decode())
                     if msg:
                         print("Сообщение есть")
-                        print(msg.decode())
-
+                        connection.send(self.msg_write(msg.decode().split(" ")).encode())
 
                     else:
                         print("Нет данных")
@@ -83,10 +88,11 @@ if __name__ == '__main__':
     for port in ports:
 
         if port == 8000:
-            thread1 = threading.Thread(target=Socket_server("localhost", port).server1_run)
+            thread1 = threading.Thread(
+                target=Socket_server("localhost", port).server1_run)
             thread1.start()
 
         if port == 8001:
-            thread2 = threading.Thread(target=Socket_server("localhost", port).server2_run)
+            thread2 = threading.Thread(
+                target=Socket_server("localhost", port).server2_run)
             thread2.start()
-
