@@ -15,15 +15,16 @@ class Socket_server():
 
     def msg_write(self, text: list):
         try:
-            for key, value in unique_data.items():
-                
-                if key == text[0] and value == text[1]:
-                    
-                    with open("log.txt", "a") as file:
-                        file.write("%s %s %s\n" % (time.asctime(),text[0:2], text[2]))
-                    return "Успех! Данные подтверждены."
-                else:
-                    return "Ошибка! Неправильные данные."
+            for i in unique_data:
+                for key, value in i.items():
+                    if key == text[0] and value == text[1]:
+
+                        with open("log.txt", "a") as file:
+                            file.write("%s %s %s\n" %
+                                       (time.asctime(), text[0:2], text[2]))
+                        return "Успех! Данные подтверждены."
+                    else:
+                        return "Ошибка! Неправильные данные."
         except IndexError:
             return "Ошибка! Введене не полный объем данных"
 
@@ -37,15 +38,19 @@ class Socket_server():
 
             try:
                 print("Подключено к:", client_address)
-                # Принимаем данные порциями и ретранслируем их
+
                 while True:
                     identifier = connection.recv(2048)
                     print("Получено: %s" % identifier.decode())
                     if identifier:
                         print("Обработка данных...")
                         msg = str(uuid.uuid4()).encode()
-                        a = {"%s" % identifier.decode(): "%s" % msg.decode()}
-                        unique_data.update(a)
+                        user_info = {"%s" % identifier.decode(): "%s" % msg.decode()}
+
+                        if len(unique_data) > 50:
+                            unique_data.remove([0])
+
+                        unique_data.append(user_info)
                         print("Отправка обратно клиенту.")
                         connection.sendall(msg)
 
@@ -69,19 +74,19 @@ class Socket_server():
                     print("Получено %s" % msg.decode())
                     if msg:
                         print("Сообщение есть")
-                        connection.send(self.msg_write(msg.decode().split(" ")).encode())
+                        connection.send(self.msg_write(
+                            msg.decode().split(" ")).encode())
 
                     else:
                         print("Нет данных")
                         break
             finally:
-                # Очищаем соединение
                 connection.close()
 
 
 if __name__ == '__main__':
 
-    unique_data = {}
+    unique_data = []
 
     ports = [8000, 8001]
 
