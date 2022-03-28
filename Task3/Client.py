@@ -23,7 +23,7 @@ class Socket_client():
             amount_received = 0
             amount_expected = len(encode_identificator)
             while amount_received < amount_expected:
-                data = self.sock.recv(1024)
+                data = self.sock.recv(2048)
                 amount_received += len(data)
                 unique_code = data.decode()
 
@@ -34,14 +34,15 @@ class Socket_client():
             self.sock.close()
 
     def Client2(self):
-        
+
         try:
-            msg_text = str(input("Введите свой идентификатор и уникальный код"))
-            text = str(input("Введите текст произвольной длинный"))
-         
-            self.sock.connect((self.ip,self.port))
-            
-        
+            msg_text = str(input(
+                "Введите свой идентификатор и уникальный код, а так же текст произвольной длинны\n"))
+            self.sock.connect((self.ip, self.port))
+            print("Отправка данных...")
+            self.sock.sendall(msg_text.encode())
+            print("Данные отправлены!")
+
         finally:
             self.sock.close()
 
@@ -49,3 +50,5 @@ class Socket_client():
 if __name__ == "__main__":
     s = Socket_client("localhost", 8000)
     s.Client1()
+    p = Socket_client("localhost", 8001)
+    p.Client2()
