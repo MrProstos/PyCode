@@ -33,7 +33,7 @@ class Socket_server():
                 print("Подключено к:", client_address)
                 # Принимаем данные порциями и ретранслируем их
                 while True:
-                    identifier = connection.recv(1024)
+                    identifier = connection.recv(2048)
                     print("Получено: %s" % identifier.decode())
                     if identifier:
                         print("Обработка данных...")
@@ -54,15 +54,17 @@ class Socket_server():
 
         while True:
 
-            print("Ожидание соединения сервер 2...")
+            print("(Порт 8001) Ожидание соединения...")
             connection, client_address = self.sock.accept()
             try:
                 print("Подключено к:", client_address)
                 while True:
-                    msg = connection.recv(1024)
+                    msg = connection.recv(2048)
                     print("Получено %s" % msg.decode())
                     if msg:
                         print("Сообщение есть")
+                        print(msg.decode())
+
 
                     else:
                         print("Нет данных")
@@ -80,12 +82,11 @@ if __name__ == '__main__':
 
     for port in ports:
 
-        s = Socket_server("localhost", port)
-
         if port == 8000:
-            thread1 = threading.Thread(target=s.server1_run())
+            thread1 = threading.Thread(target=Socket_server("localhost", port).server1_run)
             thread1.start()
 
         if port == 8001:
-            thread2 = threading.Thread(target=s.server2_run())
+            thread2 = threading.Thread(target=Socket_server("localhost", port).server2_run)
             thread2.start()
+
