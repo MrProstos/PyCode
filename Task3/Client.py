@@ -1,38 +1,51 @@
 import socket
 import sys
 
-# СоздаемTCP/IP сокет
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Подключаем сокет к порту, через который прослушивается сервер
-server_address = ("localhost", 8000)
-print("Подключено к {} порт {}".format(*server_address))
+class Socket_client():
+
+    def __init__(self, ip, port):
+        self.ip = ip
+        self.port = port
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    def Client1(self):
+        try:
+            identificator = str(
+                input("Введите свой уникальный идентификатор\n"))
+
+            self.sock.connect((self.ip, self.port))
+            print("Отправка %s" % identificator)
+
+            encode_identificator = identificator.encode()
+            self.sock.sendall(encode_identificator)
+
+            amount_received = 0
+            amount_expected = len(encode_identificator)
+            while amount_received < amount_expected:
+                data = self.sock.recv(1024)
+                amount_received += len(data)
+                unique_code = data.decode()
+
+        finally:
+            print("Идентификатор - %s, уникальный код - %s" %
+                  (identificator, unique_code))
+            print("Закрываем сокет")
+            self.sock.close()
+
+    def Client2(self):
+        
+        try:
+            msg_text = str(input("Введите свой идентификатор и уникальный код"))
+            text = str(input("Введите текст произвольной длинный"))
+         
+            self.sock.connect((self.ip,self.port))
+            
+        
+        finally:
+            self.sock.close()
 
 
-print("Введите свой уникальный идентификатор")
-identificator = str(input())
-
-sock.connect(server_address)
-
-try:
-    # Отправка данных
-    mess = identificator
-    print(f"Отправка: {mess}")
-    message = mess.encode()
-    sock.sendall(message)
-
-    # Смотрим ответ
-    amount_received = 0
-    amount_expected = len(message)
-    while amount_received < amount_expected:
-        data = sock.recv(1024)
-        amount_received += len(data)
-        unique_code = data.decode()
-        print("Получено: %s" % data.decode())
-
-    #server_address = ("localhost",8001)
-
-    
-finally:
-    print("Закрываем сокет")
-    sock.close()
+if __name__ == "__main__":
+    s = Socket_client("localhost", 8000)
+    s.Client1()

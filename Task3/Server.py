@@ -1,9 +1,10 @@
 import socket
 import threading
 import uuid
+import time
 
 
-class socket_server():
+class Socket_server():
 
     def __init__(self, ip, port):
         self.ip = ip
@@ -12,13 +13,22 @@ class socket_server():
         self.sock.bind((self.ip, self.port))
         self.sock.listen(50)
 
+    def msg_write(self, msg: dict, *text: str):
+        for key, value in unique_data.items():
+            for msg_key, msg_value in msg.items():
+                if key == msg_key and value == msg_value:
+                    print("УСПЕХ!")
+                    with open("/log.txt", "a") as file:
+                        file.write("%s %s %s" % (time.asctime(), msg, text))
+
     def server1_run(self):
 
         while True:
             # ждем соединения
-            print("Ожидание соединения сервер 1...")
+            print("(Порт 8000) Ожидание соединения...")
 
             connection, client_address = self.sock.accept()
+
             try:
                 print("Подключено к:", client_address)
                 # Принимаем данные порциями и ретранслируем их
@@ -31,30 +41,32 @@ class socket_server():
                         a = {"%s" % identifier.decode(): "%s" % msg.decode()}
                         unique_data.update(a)
                         print("Отправка обратно клиенту.")
-
                         connection.sendall(msg)
-                        connection.sendall(str(a).encode())
 
-                        print(unique_data)
                     else:
                         print("Нет данных от:", client_address)
                         break
 
             finally:
-                # Очищаем соединение
                 connection.close()
 
     def server2_run(self):
 
         while True:
 
-            # ждем соединения
             print("Ожидание соединения сервер 2...")
             connection, client_address = self.sock.accept()
             try:
                 print("Подключено к:", client_address)
-                # Принимаем данные порциями и ретранслируем и
+                while True:
+                    msg = connection.recv(1024)
+                    print("Получено %s" % msg.decode())
+                    if msg:
+                        print("Сообщение есть")
 
+                    else:
+                        print("Нет данных")
+                        break
             finally:
                 # Очищаем соединение
                 connection.close()
@@ -68,7 +80,7 @@ if __name__ == '__main__':
 
     for port in ports:
 
-        s = socket_server("localhost", port)
+        s = Socket_server("localhost", port)
 
         if port == 8000:
             thread1 = threading.Thread(target=s.server1_run())
