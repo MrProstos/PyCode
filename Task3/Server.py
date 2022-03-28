@@ -48,7 +48,7 @@ class Socket_server():
                         user_info = {"%s" % identifier.decode(): "%s" % msg.decode()}
 
                         if len(unique_data) > 50:
-                            unique_data.remove([0])
+                            unique_data.remove(unique_data[0])
 
                         unique_data.append(user_info)
                         print("Отправка обратно клиенту.")
