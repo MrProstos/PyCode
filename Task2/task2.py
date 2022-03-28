@@ -7,14 +7,14 @@ from watchdog.events import PatternMatchingEventHandler
 
 class MyHandler(PatternMatchingEventHandler):
 
-    def process(self, event):
+    def process(self, event): # функция записи в лог файл
         with open("%s" % os.path.normpath(path_log_file + "/log.txt"), "a") as file:
             file.write("%s %s %s\n" %
                        (time.asctime(), event.src_path, event.event_type))
 
         print(time.asctime(), event.src_path, event.event_type)
 
-    def mod_path(self, event):
+    def mod_path(self, event): # изменение строки для получения пути куда нужно сохранять реплику  
         mod_file = str(event.src_path).partition(
             os.path.basename("/"+os.path.dirname(path_dir)))[1:]
 
@@ -34,12 +34,15 @@ class MyHandler(PatternMatchingEventHandler):
 
     def on_deleted(self, event):
         self.process(event)
-        os.system("rm %s" % self.mod_path(event))
+        if event.is_directory:
+            os.system("rm -r %s" % self.mod_path(event))
+        else:
+            os.system("rm %s" % self.mod_path(event))
 
 
 def CreateParser():
     parser = argparse.ArgumentParser(
-        description="Запуск программы и сбор статистики о ней.")
+        description="Запуск программы для отслеживания изменений в каталоге.")
     parser.add_argument("-p", "--path_dir", required=True,
                         help="Укажите путь отслеживаемой директории.Обязательно!")
     parser.add_argument("-l", "--path_log_file", default=".",

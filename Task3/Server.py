@@ -20,7 +20,7 @@ class Socket_server():
                 for key, value in i.items():
                     print(key, text[0], value, text[1])
                     if key == text[0] and value == text[1]:
-                        with open("log.txt", "a") as file:
+                        with open("log_server.txt", "a") as file:
                             file.write("%s %s %s\n" %
                                        (time.asctime(), text[0:2], text[2]))
                         return "Успех! Данные подтверждены."
