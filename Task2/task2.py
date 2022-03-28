@@ -8,7 +8,7 @@ from watchdog.events import PatternMatchingEventHandler
 class MyHandler(PatternMatchingEventHandler):
 
     def process(self, event): # функция записи в лог файл
-        with open("%s" % os.path.normpath(path_log_file + "/log.txt"), "a") as file:
+        with open("%s" % os.path.normpath(path_log_file + "/log_replic.txt"), "a") as file:
             file.write("%s %s %s\n" %
                        (time.asctime(), event.src_path, event.event_type))
 
