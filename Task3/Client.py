@@ -1,5 +1,4 @@
 import socket
-import sys
 
 
 class Socket_client():
