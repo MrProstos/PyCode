@@ -15,16 +15,17 @@ class Socket_server():
 
     def msg_write(self, text: list):
         try:
+            print(unique_data)
             for i in unique_data:
                 for key, value in i.items():
+                    print(key, text[0], value, text[1])
                     if key == text[0] and value == text[1]:
-
                         with open("log.txt", "a") as file:
                             file.write("%s %s %s\n" %
                                        (time.asctime(), text[0:2], text[2]))
                         return "Успех! Данные подтверждены."
-                    else:
-                        return "Ошибка! Неправильные данные."
+
+            return "Ошибка! Неправильные данные."
         except IndexError:
             return "Ошибка! Введене не полный объем данных"
 
@@ -45,7 +46,8 @@ class Socket_server():
                     if identifier:
                         print("Обработка данных...")
                         msg = str(uuid.uuid4()).encode()
-                        user_info = {"%s" % identifier.decode(): "%s" % msg.decode()}
+                        user_info = {"%s" % identifier.decode(): "%s" %
+                                     msg.decode()}
 
                         if len(unique_data) > 50:
                             unique_data.remove(unique_data[0])
@@ -73,7 +75,6 @@ class Socket_server():
                     msg = connection.recv(2048)
                     print("Получено %s" % msg.decode())
                     if msg:
-                        print("Сообщение есть")
                         connection.send(self.msg_write(
                             msg.decode().split(" ")).encode())
 
