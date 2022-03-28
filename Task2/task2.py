@@ -6,15 +6,14 @@ from watchdog.events import PatternMatchingEventHandler
 
 
 class MyHandler(PatternMatchingEventHandler):
-
-    def process(self, event): # функция записи в лог файл
+    
+    def process(self, event):  # функция записи в лог файл
         with open("%s" % os.path.normpath(path_log_file + "/log_replic.txt"), "a") as file:
             file.write("%s %s %s\n" %
                        (time.asctime(), event.src_path, event.event_type))
-
         print(time.asctime(), event.src_path, event.event_type)
 
-    def mod_path(self, event): # изменение строки для получения пути куда нужно сохранять реплику  
+    def mod_path(self, event):  # изменение строки для получения пути куда нужно сохранять реплику
         mod_file = str(event.src_path).partition(
             os.path.basename("/"+os.path.dirname(path_dir)))[1:]
 
@@ -67,7 +66,7 @@ if __name__ == '__main__':
     if os.path.exists(path_replic_dir):
         os.system("cp -r %s %s" % (path_dir, path_replic_dir))
 
-    observer = Observer(timeout=time_interval)
+    observer = Observer(imeout=float(time_interval))
     observer.schedule(MyHandler(), path=path_dir,
                       recursive=True)
 
